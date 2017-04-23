@@ -17,8 +17,8 @@ player = pygame.image.load("resources/images/dude.png")
 grass = pygame.image.load("resources/images/grass.png")
 castle = pygame.image.load("resources/images/castle.png")
 arrow = pygame.image.load("resources/images/bullet.png")
-badguyimg1=pygame.image.load("resources/images/badguy.png")
-badguyimg = badguyimg1
+badguyimg1 = pygame.image.load("resources/images/badguy.png")
+badguyimg=badguyimg1
 healthbar = pygame.image.load("resources/images/healthbar.png")
 health = pygame.image.load("resources/images/health.png")
 gameover = pygame.image.load("resources/images/gameover.png")
@@ -37,17 +37,17 @@ pygame.mixer.music.set_volume(0.25)
  
 # 4 - keep looping through
 def main():
-    keys=[False, False, False, False]
-    playerpos=[100, 100]
-    acc=[0, 0]
+    keys = [False, False, False, False]
+    playerpos=[100,100]
+    acc=[0,0]
     arrows=[]
     badtimer=100
     badtimer1=0
-    badguys=[[640, 100]]
+    badguys=[[640,100]]
     healthvalue=194
     timestart = pygame.time.get_ticks()
     pygame.mixer.music.play(-1, 0.0)
-    num_arrows=100
+    num_arrows = 100
 
     running = 1
     exitcode = 0
@@ -58,21 +58,21 @@ def main():
         # 6 - draw the screen elements
         for x in range(width/grass.get_width()+1):
             for y in range(height/grass.get_height()+1):
-                screen.blit(grass, (x*100, y*100))
-        screen.blit(castle, (0,30))
-        screen.blit(castle, (0,135))
-        screen.blit(castle, (0,240))
-        screen.blit(castle, (0,345))
+                screen.blit(grass,(x*100,y*100))
+        screen.blit(castle,(0,30))
+        screen.blit(castle,(0,135))
+        screen.blit(castle,(0,240))
+        screen.blit(castle,(0,345 ))
         # 6.1 - Set player position and rotation
         position = pygame.mouse.get_pos()
-        angle = math.atan2(position[1]-(playerpos[1]+32),position[0]-(playerpos[0] + 26))
+        angle = math.atan2(position[1]-(playerpos[1]+32),position[0]-(playerpos[0]+26))
         playerrot = pygame.transform.rotate(player, 360-angle*57.29)
         playerpos1 = (playerpos[0]-playerrot.get_rect().width/2, playerpos[1]-playerrot.get_rect().height/2)
         screen.blit(playerrot, playerpos1)
         # 6.2 - Draw arrows
         for bullet in list(arrows):
-            velx = math.cos(bullet[0])*10
-            vely = math.sin(bullet[0])*10
+            velx=math.cos(bullet[0])*10
+            vely=math.sin(bullet[0])*10
             bullet[1]+=velx
             bullet[2]+=vely
             if bullet[1]<-64 or bullet[1]>640 or bullet[2]<-64 or bullet[2]>480:
@@ -84,9 +84,9 @@ def main():
             arrow1 = pygame.transform.rotate(arrow, 360-projectile[0]*57.29)
             screen.blit(arrow1, (projectile[1], projectile[2]))
         
-        # 6.3 - Draw badgers
+    # 6.3 - Draw badgers
         if badtimer==0:
-            badguys.append([640, random.randint(50, 430)])
+            badguys.append([640, random.randint(50,430)])
             badtimer=100-(badtimer1*2)
             if badtimer1>=35:
                 badtimer1=35
@@ -102,9 +102,9 @@ def main():
             badrect.left=badguy[0]
             if badrect.left<64:
                 hit.play()
-                healthvalue-=random.randint(5, 20)
+                healthvalue -= random.randint(5,20)
                 badguys.remove(badguy)
-            # 6.3.2 - Check for collisions
+            #6.3.2 - Check for collisions
             for bullet in list(arrows):
                 bullrect=pygame.Rect(arrow.get_rect())
                 bullrect.left=bullet[1]
@@ -114,19 +114,15 @@ def main():
                     acc[0]+=1
                     badguys.remove(badguy)
                     arrows.remove(bullet)
-                    num_arrows -= 1
-                    if num_arrows <= 0:
-                        running = 0
             # 6.3.3 - Next bad guy
         for badguy in badguys:
             screen.blit(badguyimg, badguy)
         # 6.4 - Draw clock
         font = pygame.font.Font(None, 24)
         time_remaining = 90000 - (pygame.time.get_ticks() - timestart)
-        survivedtext = font.render(str((time_remaining / 60000))+":"+str(time_remainin /1000%60).zfill(2), True,
-                                   (0, 0, 0))
+        survivedtext = font.render(str((time_remaining / 60000))+":"+str(time_remaining/1000%60).zfill(2), True, (0,0,0))
         textRect = survivedtext.get_rect()
-        textRect.topright=[635, 5]
+        textRect.topright=[635,5]
         screen.blit(survivedtext, textRect)
         arrowstext = font.render("Remaining arrows: " + str(num_arrows), True, (0,0,0))
         arrowsTextRect = arrowstext.get_rect()
@@ -135,7 +131,7 @@ def main():
         # 6.5 - Draw health bar
         screen.blit(healthbar, (5,5))
         for health1 in range(healthvalue):
-            screen.blit(health, (health +8,8))
+            screen.blit(health, (health1+8,8))
         # 7 - update the screen
         pygame.display.flip()
         # 8 - loop through the events
@@ -146,13 +142,13 @@ def main():
                 pygame.quit() 
                 exit(0)
             if event.type == pygame.KEYDOWN:
-                if event.key == K_w:
-                    keys[0] = True
-                elif event.key == K_a:
-                    keys[1] = True
-                elif event.key == K_s:
-                    keys[2] = True
-                elif event.key == K_d:
+                if event.key==K_w:
+                    keys[0]=True
+                elif event.key==K_a:
+                    keys[1]=True
+                elif event.key==K_s:
+                    keys[2]=True
+                elif event.key==K_d:
                     keys[3]=True
             if event.type == pygame.KEYUP:
                 if event.key==pygame.K_w:
@@ -165,10 +161,9 @@ def main():
                     keys[3]=False
             if event.type==pygame.MOUSEBUTTONDOWN:
                 shoot.play()
-                position = pygame.mouse.get_pos()
+                position=pygame.mouse.get_pos()
                 acc[1]+=1
-                arrows.append([math.atan2(position[1] - (playerpos1[1] + 32), position[0] - (playerpos1[0] + 26)),
-                               playerpos1[0] + 32, playerpos1[1] + 32])
+                arrows.append([math.atan2(position[1]-(playerpos1[1]+32),position[0]-(playerpos1[0]+26)),playerpos1[0]+32,playerpos1[1]+32])
         # 9 - Move player
         if keys[0]:
             playerpos[1]-=5
@@ -178,7 +173,7 @@ def main():
             playerpos[0]-=5
         elif keys[3]:
             playerpos[0]+=5
-        # 10 - Win/Lose check
+        #10 - Win/Lose check
         timenow = pygame.time.get_ticks()
         if timenow - timestart >=90000:
             running=0
@@ -186,14 +181,14 @@ def main():
         if healthvalue<=0:
             running=0
             exitcode=0
-        if acc[1] != 0:
-            accuracy = round(acc[0] * 1.0 / acc[1] * 100, 2)
+        if acc[1]!=0:
+            accuracy=round(acc[0]*1.0/acc[1]*100,2)
         else:
             accuracy=0
     # 11 - Win/lose display        
     pygame.font.init()
     font = pygame.font.Font(None, 24)
-    elapsedtime = pygame.time.get_ticks()-timestart/1000
+    elapsedtime = pygame.time.get_ticks() - timestart / 1000
     game_over_message = ""
 
     if num_arrows == 0:
@@ -224,8 +219,8 @@ def main():
     textx_size = text.get_width()
     texty_size = text.get_height()
     pygame.draw.rect(screen, (0, 255, 255), ((textx - 5, texty - 5),
-                                              (textx_size + 10, texty_size +
-                                               10)))
+                                               (textx_size + 10, texty_size +
+                                                10)))
 
     screen.blit(text, (width / 2 - text.get_width() / 2,
                        height / 4 - text.get_height() / 2))
@@ -235,11 +230,12 @@ def main():
     text2x_size = text2.get_width()
     text2y_size = text2.get_height()
     pygame.draw.rect(screen, (0, 255, 255), ((text2x - 5, text2y - 5),
-                                              (text2x_size + 10, text2y_size +
-                                               10)))
+                                               (text2x_size + 10, text2y_size +
+                                                10)))
 
     screen.blit(text2, (width / 2 - text2.get_width() / 2,
-                        height * 3 / 4 - text2.get_height() / 2))
+                       height * 3 / 4 - text2.get_height() / 2))
+
 
     pygame.display.flip()
 
