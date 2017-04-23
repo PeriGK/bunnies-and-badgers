@@ -128,6 +128,10 @@ def main():
         textRect = survivedtext.get_rect()
         textRect.topright = [635, 5]
         screen.blit(survivedtext, textRect)
+        arrowstext = font.render("Remaining arrows: " + str(num_arrows), True, (0,0,0))
+        arrowsTextRect = arrowstext.get_rect()
+        arrowsTextRect.topright = [635, 20]
+        screen.blit(arrowstext, arrowsTextRect)
         # 6.5 - Draw health bar
         screen.blit(healthbar, (5, 5))
         for health1 in range(healthvalue):
