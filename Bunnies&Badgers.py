@@ -191,7 +191,7 @@ def main():
     elapsedtime = pygame.time.get_ticks()-timestart/1000
 
     game_over_message = ""
-    if num_arrows == 0:
+    if num_arrows <= 0:
         game_over_message = "You have run out of arrows!!! "
     game_over_message += "Score: "+str(accuracy)+"% (Accuracy) * "+str(elapsedtime/1000)+" (Time) = "+str(int(accuracy*elapsedtime/1000))
     text = font.render(game_over_message, True, (0, 255, 0))
