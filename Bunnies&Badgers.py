@@ -84,7 +84,7 @@ def main():
             arrow1 = pygame.transform.rotate(arrow, 360-projectile[0]*57.29)
             screen.blit(arrow1, (projectile[1], projectile[2]))
         
-        # 6.3 - Draw badgers
+       # 6.3 - Draw badgers
         if badtimer==0:
             badguys.append([640, random.randint(50,430)])
             badtimer=100-(badtimer1*2)
@@ -188,15 +188,14 @@ def main():
     # 11 - Win/lose display        
     pygame.font.init()
     font = pygame.font.Font(None, 24)
-    elapsedtime = pygame.time.get_ticks() - timestart / 1000
-    game_over_message = ""
+    elapsedtime = pygame.time.get_ticks()-timestart/1000
 
+    game_over_message = ""
     if num_arrows == 0:
         game_over_message = "You have run out of arrows!!! "
-
-    game_over_message += "Score: " + str(accuracy) + "% (Accuracy) * " + str(elapsedtime / 1000) + " (Time) = " + str(
-        int(accuracy * elapsedtime / 1000))
+    game_over_message += "Score: "+str(accuracy)+"% (Accuracy) * "+str(elapsedtime/1000)+" (Time) = "+str(int(accuracy*elapsedtime/1000))
     text = font.render(game_over_message, True, (0, 255, 0))
+
     textRect = text.get_rect()
     textRect.centerx = screen.get_rect().centerx
     textRect.centery = screen.get_rect().centery+24
