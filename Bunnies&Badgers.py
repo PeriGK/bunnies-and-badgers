@@ -84,7 +84,7 @@ def main():
             arrow1 = pygame.transform.rotate(arrow, 360-projectile[0]*57.29)
             screen.blit(arrow1, (projectile[1], projectile[2]))
         
-    # 6.3 - Draw badgers
+        # 6.3 - Draw badgers
         if badtimer==0:
             badguys.append([640, random.randint(50,430)])
             badtimer=100-(badtimer1*2)
